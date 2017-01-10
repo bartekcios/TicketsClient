@@ -10,40 +10,47 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bartekcios.ticketsclient.MainActivity">
 
-    <Button
-        android:text="My account"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:id="@+id/textViewFirstName" />
+
+    <Button
+        android:text="My account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/buttonMyAccount"
-        android:onClick="goToMyAccount" />
+        android:onClick="goToMyAccount"
+        android:layout_below="@+id/textViewFirstName"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="History"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonMyAccount"
-        android:layout_centerHorizontal="true"
         android:id="@+id/buttonHistory"
-        android:onClick="goToHistory" />
+        android:onClick="goToHistory"
+        android:layout_below="@+id/buttonMyAccount"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Buy ticket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonBuyTicket"
+        android:onClick="goToBuyTicket"
         android:layout_below="@+id/buttonHistory"
-        android:layout_centerHorizontal="true"
-        android:onClick="goToBuyTicket" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonBuyTicket"
-        android:layout_alignStart="@+id/buttonHistory"
         android:id="@+id/buttonLogout"
-        android:onClick="logout" />
+        android:onClick="logout"
+        android:layout_below="@+id/buttonBuyTicket"
+        android:layout_alignStart="@+id/buttonHistory" />
 
 </RelativeLayout>
