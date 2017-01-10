@@ -29,8 +29,6 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.protocol.HTTP;
 
-import static android.R.attr.data;
-
 /**
  * Created by bartekcios on 2017-01-03.
  */
@@ -39,7 +37,6 @@ import static android.R.attr.data;
 public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
 
     public enum RequestMethod {
-        INVALID,
         GET,
         POST
     }
@@ -113,12 +110,6 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
         request.setHeader("Content-type", "application/json");
 
         try {
-            // add headers
-//                if (headers != null) {
-//                    headers = addCommonHeaderField(headers);
-//                    for (NameValuePair h : headers)
-//                        request.addHeader(h.getName(), h.getValue());
-//                }
             //add parameters
             if(null != mParams)
             {
@@ -211,7 +202,7 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
     private static JSONArray convertInputStreamToJSONArray(InputStream inputStream)
             throws JSONException {
 
-        JSONArray retVal = null;
+        JSONArray retVal;
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line;

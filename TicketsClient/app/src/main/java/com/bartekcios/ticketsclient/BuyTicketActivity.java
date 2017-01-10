@@ -22,7 +22,7 @@ public class BuyTicketActivity extends AppCompatActivity implements ActivityWith
 
     private static final String mUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/ticket/";
     private static final RESTRequestTask.RequestMethod mRequestMethod = RESTRequestTask.RequestMethod.GET;
-    private List<JSONObject> mTickets = null;
+    private List<Ticket> mTickets = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class BuyTicketActivity extends AppCompatActivity implements ActivityWith
         mTickets = new ArrayList<>();
         try {
         for(int i=0;i<jsonArray.length();++i){
-            mTickets.add(jsonArray.getJSONObject(i));
+            mTickets.add(new Ticket(jsonArray.getJSONObject(i)));
         }
         } catch (JSONException e) {
             e.printStackTrace();
