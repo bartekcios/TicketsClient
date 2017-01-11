@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -77,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityWithRequ
         String username = editTextUsername.getText().toString();
         String password = editTextPassword.getText().toString();
 
-        ArrayList<NameValuePair> headers = new ArrayList<>();
+        ArrayList<NameValuePair> headers = null;
         ArrayList<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("username", username));
         params.add(new BasicNameValuePair("password", password));

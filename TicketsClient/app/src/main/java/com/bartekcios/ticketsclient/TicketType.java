@@ -12,13 +12,38 @@ import java.net.URISyntaxException;
  * Created by bartekcios on 2017-01-10.
  */
 
-public class Ticket {
+public class TicketType {
     private String mName;
     private String mPrice;
     private String mDescription;
     private String mValidityTime;
     private String mTimeUnit;
     private int mId;
+
+    public TicketType(JSONObject jsonObject) {
+
+        try {
+            mName = jsonObject.getString("name");
+            mPrice = jsonObject.getString("price");
+            mDescription = jsonObject.getString("description");
+            mValidityTime = jsonObject.getString("time_of_validity");
+            mTimeUnit = jsonObject.getString("time_unit");
+            mId = obtainId(Uri.parse(jsonObject.getString("url")));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int obtainId(Uri uri)
+    {
+        int id;
+        String[] segments = uri.getPath().split("/");
+        String idStr = segments[segments.length-1];
+        id = Integer.parseInt(idStr);
+
+        return id;
+    }
 
     public String getPrice() {
         return mPrice;
@@ -44,30 +69,5 @@ public class Ticket {
         return mId;
     }
 
-    public Ticket(JSONObject jsonObject) {
 
-        try {
-            mName = jsonObject.getString("name");
-            mPrice = jsonObject.getString("price");
-            mDescription = jsonObject.getString("description");
-            mValidityTime = jsonObject.getString("time_of_validity");
-            mTimeUnit = jsonObject.getString("time_unit");
-            mId = obtainId(Uri.parse(jsonObject.getString("url")));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private int obtainId(Uri uri)
-    {
-        int id = 0;
-        String[] segments = uri.getPath().split("/");
-        String idStr = segments[segments.length-1];
-        id = Integer.parseInt(idStr);
-
-        return id;
-    }
-
-    //public final String
 }

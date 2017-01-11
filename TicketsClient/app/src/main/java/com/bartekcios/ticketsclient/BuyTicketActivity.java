@@ -10,7 +10,6 @@ import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ public class BuyTicketActivity extends AppCompatActivity implements ActivityWith
 
     private static final String mUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/ticket/";
     private static final RESTRequestTask.RequestMethod mRequestMethod = RESTRequestTask.RequestMethod.GET;
-    private List<Ticket> mTickets = null;
+    private List<TicketType> mTicketTypes = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +39,16 @@ public class BuyTicketActivity extends AppCompatActivity implements ActivityWith
     @Override
     public void positiveResponseCbk(JSONArray jsonArray) {
 
-        mTickets = new ArrayList<>();
+        mTicketTypes = new ArrayList<>();
         try {
         for(int i=0;i<jsonArray.length();++i){
-            mTickets.add(new Ticket(jsonArray.getJSONObject(i)));
+            mTicketTypes.add(new TicketType(jsonArray.getJSONObject(i)));
         }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        initTicketsList();
-
-        int i=9;
+        initTicketTypesList();
     }
 
     @Override
@@ -84,12 +81,11 @@ public class BuyTicketActivity extends AppCompatActivity implements ActivityWith
         server.sendRequest(headers, params);
     }
 
-    private void initTicketsList()
+    private void initTicketTypesList()
     {
-        ListAdapter ticketsAdapter = new CustomTicketAdapter(this, mTickets);
+        ListAdapter ticketsAdapter = new CustomTicketTypeAdapter(this, mTicketTypes, (ProgressBar)findViewById(R.id.progressBarLoading));
         ListView ticketsListView = (ListView)findViewById(R.id.listViewTickets);
 
         ticketsListView.setAdapter(ticketsAdapter);
-
     }
 }

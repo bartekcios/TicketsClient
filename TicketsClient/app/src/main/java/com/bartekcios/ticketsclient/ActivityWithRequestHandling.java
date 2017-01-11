@@ -3,13 +3,12 @@ package com.bartekcios.ticketsclient;
 import android.widget.ProgressBar;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
- * Created by bartekcios on 2017-01-09.
+ * Created by bartekcios on 2017-01-11.
  */
 
-public interface ActivityWithRequestHandling {
+public interface ActivityWithRequestHandling<T> {
     void positiveResponseCbk(JSONArray jsonArray);
     void negativeResponseCbk(JSONArray jsonArray);
     ProgressBar getLoadingWidget();

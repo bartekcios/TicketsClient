@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements ActivityWithReque
 
     private void sendDataRequest(){
         ArrayList<NameValuePair> headers = new ArrayList<>();
-        ArrayList<NameValuePair> params = new ArrayList<>();
+        ArrayList<NameValuePair> params = null;
 
         headers.add(new BasicNameValuePair("authorization", "token "+User.mToken));
 

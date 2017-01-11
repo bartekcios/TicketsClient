@@ -110,9 +110,15 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
         request.setHeader("Content-type", "application/json");
 
         try {
+                //add headers
+                if (mHeaders != null) {
+                    mHeaders = addJsonHeaderField(mHeaders);
+                    for (NameValuePair h : mHeaders)
+                        request.addHeader(h.getName(), h.getValue());
+                }
+
             //add parameters
-            if(null != mParams)
-            {
+            if(null != mParams) {
                 JSONObject json = new JSONObject();
 
                 for(NameValuePair pair : mParams)
@@ -125,7 +131,7 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
                 request.setEntity(se);
             }
 
-            retVal = executeRequest(request, mUrl);
+            retVal = executeRequest(request);
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
@@ -157,25 +163,25 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
             }
         }
         HttpGet request = new HttpGet(mUrl + combinedParams);
-        request.setHeader("Content-type", "application/json");
+        //request.setHeader("Content-type", "application/json");
 
         // add headers
         if (mHeaders != null) {
-            mHeaders = addCommonHeaderField(mHeaders);
+            mHeaders = addJsonHeaderField(mHeaders);
             for (NameValuePair h : mHeaders)
                 request.addHeader(h.getName(), h.getValue());
         }
-        mResponse = executeRequest(request, mUrl);
+        mResponse = executeRequest(request);
 
         return retVal;
     }
 
-    private ArrayList<NameValuePair> addCommonHeaderField(ArrayList<NameValuePair> _header) {
-        _header.add(new BasicNameValuePair("Content-Type", "application/x-www-form-urlencoded"));
+    private ArrayList<NameValuePair> addJsonHeaderField(ArrayList<NameValuePair> _header) {
+        _header.add(new BasicNameValuePair("Content-Type", "application/json"));
         return _header;
     }
 
-    private JSONArray executeRequest(HttpUriRequest request, String url) {
+    private JSONArray executeRequest(HttpUriRequest request) {
         HttpClient client = new DefaultHttpClient();
         HttpResponse httpResponse;
         try {
@@ -186,8 +192,6 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
 
             if (entity != null) {
                 InputStream inputStream = entity.getContent();
-
-
 
                 mResponse = convertInputStreamToJSONArray(inputStream);
                 inputStream.close();

@@ -36,8 +36,8 @@ public class RegisterActivity extends AppCompatActivity implements ActivityWithR
     @Override
     public void negativeResponseCbk(JSONArray jsonArray) {
 
-        JSONObject jsonObject = null;
-        String firstKey = "";
+        JSONObject jsonObject;
+        String firstKey;
         String error = "";
 
         try {
@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity implements ActivityWithR
         String lastName  = editTextLastName.getText().toString();
         String email     = editTextEmail.getText().toString();
 
-        ArrayList<NameValuePair> headers = new ArrayList<>();
+        ArrayList<NameValuePair> headers = null;
         ArrayList<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("username", username));
         params.add(new BasicNameValuePair("password", password));

@@ -3,7 +3,7 @@ package com.bartekcios.ticketsclient;
 import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
+
 import java.util.ArrayList;
 import cz.msebera.android.httpclient.NameValuePair;
 
@@ -13,10 +13,10 @@ import cz.msebera.android.httpclient.NameValuePair;
 
 public class Server {
 
-    private ActivityWithRequestHandling mActivityWithRequestHandling;
+    private ActivityWithRequestHandling mRequestHandling;
 
-    public Server(ActivityWithRequestHandling activityWithRequestHandling) {
-        mActivityWithRequestHandling = activityWithRequestHandling;
+    public Server(ActivityWithRequestHandling requestHandling) {
+        mRequestHandling = requestHandling;
     }
 
     public void sendRequest(ArrayList<NameValuePair> headers, ArrayList<NameValuePair> params) {
@@ -24,18 +24,18 @@ public class Server {
         RESTRequestTask restRequestTask = new RESTRequestTask(this,
                                                                 headers,
                                                                 params,
-                                                                mActivityWithRequestHandling.getUrl(),
-                                                                mActivityWithRequestHandling.getRequestMethod(),
-                                                                mActivityWithRequestHandling.getLoadingWidget());
+                                                                mRequestHandling.getUrl(),
+                                                                mRequestHandling.getRequestMethod(),
+                                                                mRequestHandling.getLoadingWidget());
         restRequestTask.execute();
     }
 
     public void receiveResponseCbk(JSONArray aResponse, int aResponseCode) {
         Log.d("Request response", aResponse.toString() + Integer.toString(aResponseCode));
         if(200<= aResponseCode && 209 >= aResponseCode) {
-            mActivityWithRequestHandling.positiveResponseCbk(aResponse);
+            mRequestHandling.positiveResponseCbk(aResponse);
         } else {
-            mActivityWithRequestHandling.negativeResponseCbk(aResponse);
+            mRequestHandling.negativeResponseCbk(aResponse);
         }
     }
 }

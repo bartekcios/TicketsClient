@@ -3,4 +3,34 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:text="Price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewPrice" />
+
+    <TextView
+        android:text="Validity time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewValidityTime" />
+
+    <TextView
+        android:text="Status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewStatus" />
+
+    <TextView
+        android:text="Valid to date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewValidToDate" />
+
+    <Button
+        android:text="Validate the ticket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonValidateTheTicket" />
+
 </LinearLayout>
