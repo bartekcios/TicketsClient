@@ -13,6 +13,7 @@ public class User {
     public static String mLastName = "";
     public static String mEmail = "";
     public static boolean mInitialized = false;
+    public static boolean mLoggedIn = false;
 
     public static void deinit()
     {
@@ -24,5 +25,6 @@ public class User {
         mLastName = "";
         mEmail = "";
         mInitialized = false;
+        mLoggedIn = false;
     }
 }

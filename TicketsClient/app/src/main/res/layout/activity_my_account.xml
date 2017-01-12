@@ -19,26 +19,6 @@
         android:id="@+id/buttonBack"
         android:onClick="goToMainMenu" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editTextUsername"
-        android:layout_below="@+id/progressBar"
-        android:layout_alignStart="@+id/buttonBack"
-        android:hint="Username" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editTextPassword"
-        android:hint="Password"
-        android:layout_below="@+id/editTextUsername"
-        android:layout_alignStart="@+id/editTextUsername" />
-
     <TextView
         android:text="Username"
         android:layout_width="wrap_content"
@@ -47,16 +27,6 @@
         android:layout_alignBaseline="@+id/editTextUsername"
         android:layout_alignBottom="@+id/editTextUsername"
         android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editTextFirstName"
-        android:hint="First name"
-        android:layout_below="@+id/editTextPassword"
-        android:layout_alignStart="@+id/editTextPassword" />
 
     <TextView
         android:text="Password"
@@ -94,6 +64,62 @@
         android:layout_alignBottom="@+id/editTextLastName"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:text="Balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewBalance"
+        android:layout_alignBaseline="@+id/editTextBalance"
+        android:layout_alignBottom="@+id/editTextBalance"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Recharge account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewRecharge"
+        android:layout_alignBaseline="@+id/editTextRecharge"
+        android:layout_alignBottom="@+id/editTextRecharge"
+        android:layout_alignParentStart="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/progressBarLoading" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextUsername"
+        android:hint="Username"
+        android:layout_below="@+id/progressBarLoading"
+        android:layout_alignStart="@+id/editTextPassword" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextPassword"
+        android:hint="Password"
+        android:layout_below="@+id/editTextUsername"
+        android:layout_alignStart="@+id/editTextFirstName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextFirstName"
+        android:hint="First name"
+        android:layout_below="@+id/editTextPassword"
+        android:layout_alignStart="@+id/editTextLastName" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,7 +128,7 @@
         android:id="@+id/editTextLastName"
         android:hint="Last name"
         android:layout_below="@+id/editTextFirstName"
-        android:layout_alignStart="@+id/editTextFirstName" />
+        android:layout_alignStart="@+id/editTextEmail" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -112,6 +138,35 @@
         android:id="@+id/editTextEmail"
         android:hint="Email"
         android:layout_below="@+id/editTextLastName"
-        android:layout_alignStart="@+id/editTextLastName" />
+        android:layout_alignStart="@+id/editTextBalance" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextBalance"
+        android:hint="Balance"
+        android:layout_below="@+id/editTextEmail"
+        android:layout_alignStart="@+id/editTextRecharge" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editTextRecharge"
+        android:hint="Recharge your account"
+        android:text="0"
+        android:layout_below="@+id/editTextBalance"
+        android:layout_alignStart="@+id/buttonRecharge" />
+
+    <Button
+        android:text="Recharge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonRecharge"
+        android:layout_below="@+id/editTextRecharge"
+        android:layout_alignStart="@+id/buttonBack" />
 
 </RelativeLayout>

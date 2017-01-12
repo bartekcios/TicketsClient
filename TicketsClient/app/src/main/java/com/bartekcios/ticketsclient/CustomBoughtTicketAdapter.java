@@ -19,6 +19,7 @@ import java.util.List;
 public class CustomBoughtTicketAdapter extends ArrayAdapter<BoughtTicket> {
     private final ProgressBar mProgressBarLoading;
     private final Context mContext;
+
     public CustomBoughtTicketAdapter(Context context, List<BoughtTicket> tickets, ProgressBar progressBarLoading) {
         super(context, R.layout.custom_history_ticket_row, tickets);
         mProgressBarLoading = progressBarLoading;
@@ -31,19 +32,24 @@ public class CustomBoughtTicketAdapter extends ArrayAdapter<BoughtTicket> {
         LayoutInflater ticketsInflater = LayoutInflater.from(getContext());
         View customView = ticketsInflater.inflate(R.layout.custom_history_ticket_row, parent, false);
 
-        BoughtTicket ticket = getItem(position);
-        TextView priceTextView = (TextView)customView.findViewById(R.id.textViewPrice);
+        BoughtTicket ticket             = getItem(position);
+        TextView priceTextView          = (TextView)customView.findViewById(R.id.textViewPrice);
         TextView validityTimeTextView   = (TextView)customView.findViewById(R.id.textViewValidityTime);
         TextView statusTextView         = (TextView)customView.findViewById(R.id.textViewStatus);
         TextView validToDataTextView    = (TextView)customView.findViewById(R.id.textViewValidToDate);
-        Button validateButton = (Button) customView.findViewById(R.id.buttonValidateTheTicket);
+        Button validateButton           = (Button)  customView.findViewById(R.id.buttonValidateTheTicket);
+
+        if(!ticket.getStatus().equals("new"))
+        {
+            validateButton.setVisibility(View.INVISIBLE);
+        }
 
         priceTextView.setText(ticket.getPrice());
         validityTimeTextView.setText(ticket.getValidityTime());
         statusTextView.setText(ticket.getStatus());
         validToDataTextView.setText(ticket.getValidToDate());
 
-        validateButton.setOnClickListener(new ValidateTicketOnClickListener(mContext, ticket, mProgressBarLoading));
+        validateButton.setOnClickListener(new ValidateTicketOnClickListener(mContext, ticket, mProgressBarLoading, statusTextView, validToDataTextView, validateButton));
 
         return customView;
     }

@@ -22,6 +22,7 @@ import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.client.methods.HttpPut;
 import cz.msebera.android.httpclient.client.methods.HttpUriRequest;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
@@ -38,7 +39,8 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
 
     public enum RequestMethod {
         GET,
-        POST
+        POST,
+        PUT
     }
 
     private int mResponseCode = 0;
@@ -97,9 +99,52 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
                 ExecutePost();
                 break;
             }
+            case PUT: {
+                ExecutePut();
+                break;
+            }
+            default:
+            {
+                break;
+            }
         }
 
         return mResponse;
+    }
+
+    private JSONArray ExecuteGet()
+    {
+        JSONArray retVal = null;
+
+        // add parameters
+        String combinedParams = "";
+        if (mParams != null) {
+            combinedParams += "?";
+            for (NameValuePair p : mParams) {
+                String paramString = null;
+                try {
+                    paramString = p.getName() + "=" + URLEncoder.encode(p.getValue(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                if (combinedParams.length() > 1)
+                    combinedParams += "&" + paramString;
+                else
+                    combinedParams += paramString;
+            }
+        }
+        HttpGet request = new HttpGet(mUrl + combinedParams);
+        //request.setHeader("Content-type", "application/json");
+
+        // add headers
+        if (mHeaders != null) {
+            mHeaders = addJsonHeaderField(mHeaders);
+            for (NameValuePair h : mHeaders)
+                request.addHeader(h.getName(), h.getValue());
+        }
+        mResponse = executeRequest(request);
+
+        return retVal;
     }
 
     private JSONArray ExecutePost()
@@ -141,37 +186,41 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
         return retVal;
     }
 
-    private JSONArray ExecuteGet()
+    private JSONArray ExecutePut()
     {
         JSONArray retVal = null;
+        HttpPut request = new HttpPut(mUrl);
 
-        // add parameters
-        String combinedParams = "";
-        if (mParams != null) {
-            combinedParams += "?";
-            for (NameValuePair p : mParams) {
-                String paramString = null;
-                try {
-                    paramString = p.getName() + "=" + URLEncoder.encode(p.getValue(), "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                if (combinedParams.length() > 1)
-                    combinedParams += "&" + paramString;
-                else
-                    combinedParams += paramString;
+        request.setHeader("Content-type", "application/json");
+
+        try {
+            //add headers
+            if (mHeaders != null) {
+                mHeaders = addJsonHeaderField(mHeaders);
+                for (NameValuePair h : mHeaders)
+                    request.addHeader(h.getName(), h.getValue());
             }
-        }
-        HttpGet request = new HttpGet(mUrl + combinedParams);
-        //request.setHeader("Content-type", "application/json");
 
-        // add headers
-        if (mHeaders != null) {
-            mHeaders = addJsonHeaderField(mHeaders);
-            for (NameValuePair h : mHeaders)
-                request.addHeader(h.getName(), h.getValue());
+            //add parameters
+            if(null != mParams) {
+                JSONObject json = new JSONObject();
+
+                for(NameValuePair pair : mParams)
+                {
+                    json.put(pair.getName(), pair.getValue());
+                }
+
+                StringEntity se = new StringEntity( json.toString());
+                se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                request.setEntity(se);
+            }
+
+            retVal = executeRequest(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        mResponse = executeRequest(request);
 
         return retVal;
     }

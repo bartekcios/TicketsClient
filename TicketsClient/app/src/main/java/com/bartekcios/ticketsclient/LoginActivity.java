@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityWithRequ
         User.mPassword = editTextPassword.getText().toString();
         User.mPasswordLength = editTextUsername.getText().toString().length();
         User.mToken = token;
+        User.mLoggedIn = true;
 
         Intent mainMenuActivity = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(mainMenuActivity);

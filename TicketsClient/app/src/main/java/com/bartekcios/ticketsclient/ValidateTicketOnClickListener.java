@@ -2,12 +2,16 @@ package com.bartekcios.ticketsclient;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
@@ -19,25 +23,45 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 public class ValidateTicketOnClickListener  implements View.OnClickListener, ActivityWithRequestHandling {
 
     private static final String mUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/usertickets/";
-    private static final RESTRequestTask.RequestMethod mRequestMethod = RESTRequestTask.RequestMethod.POST;
+    private static final RESTRequestTask.RequestMethod mRequestMethod = RESTRequestTask.RequestMethod.PUT;
     private final ProgressBar mProgressBarLoading;
     private final Context mContext;
     private final BoughtTicket mBoughtTicket;
+    private TextView statusTextView;
+    private TextView validToDataTextView;
+    private Button validateButton;
 
-    public ValidateTicketOnClickListener(Context context, BoughtTicket boughtTicket, ProgressBar progressBarLoading) {
-        this.mBoughtTicket = boughtTicket;
+    public ValidateTicketOnClickListener(Context context, BoughtTicket ticket, ProgressBar progressBarLoading, TextView statusTextView, TextView validToDataTextView, Button validateButton) {
+        this.mBoughtTicket = ticket;
         this.mProgressBarLoading = progressBarLoading;
         this.mContext = context;
+        this.statusTextView = statusTextView;
+        this.validToDataTextView = validToDataTextView;
+        this.validateButton = validateButton;
     }
 
     @Override
     public void onClick(View v) {
-
+        sendDataRequest();
     }
 
     @Override
     public void positiveResponseCbk(JSONArray jsonArray) {
         Toast.makeText(mContext, "Ticket validated!", Toast.LENGTH_SHORT).show();
+
+        try {
+            // get changed ticket
+            List<TicketType> ticketTypes = new ArrayList<>();   // create empty list, we don't need the type of ticket
+            BoughtTicket tempTicket = new BoughtTicket(jsonArray.getJSONObject(0), ticketTypes);
+
+            // set values in view
+            statusTextView.setText(tempTicket.getStatus());
+            validToDataTextView.setText(tempTicket.getValidToDate());
+            validateButton.setVisibility(View.INVISIBLE);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -52,7 +76,7 @@ public class ValidateTicketOnClickListener  implements View.OnClickListener, Act
 
     @Override
     public String getUrl() {
-        return mUrl;
+        return mUrl+mBoughtTicket.getId()+"/";
     }
 
     @Override
@@ -65,7 +89,7 @@ public class ValidateTicketOnClickListener  implements View.OnClickListener, Act
         ArrayList<NameValuePair> params = new ArrayList<>();
 
         headers.add(new BasicNameValuePair("authorization", "token "+User.mToken));
-        params.add(new BasicNameValuePair("ticket_id", Integer.toString(mBoughtTicket.getId())));
+        params.add(new BasicNameValuePair("status", "active"));
 
         Server server = new Server(this);
         server.sendRequest(headers, params);

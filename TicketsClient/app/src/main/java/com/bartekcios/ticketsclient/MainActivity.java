@@ -27,11 +27,15 @@ public class MainActivity extends AppCompatActivity implements ActivityWithReque
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView username = (TextView)findViewById(R.id.textViewFirstName);
-        username.setText("Hi "+User.mUsername+"!");
+        if(User.mLoggedIn) {
+            TextView username = (TextView) findViewById(R.id.textViewFirstName);
+            username.setText("Hi " + User.mUsername + "!");
 
-        if(!User.mInitialized) {
-            sendDataRequest();
+            if (!User.mInitialized) {
+                sendDataRequest();
+            }
+        } else {
+            logout(null);
         }
     }
 
