@@ -25,13 +25,14 @@ import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.client.methods.HttpPut;
 import cz.msebera.android.httpclient.client.methods.HttpUriRequest;
 import cz.msebera.android.httpclient.entity.StringEntity;
-import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.protocol.HTTP;
 
 /**
  * Created by bartekcios on 2017-01-03.
+ * Class contains implementation for REST request using async task
  */
 
 
@@ -43,29 +44,29 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
         PUT
     }
 
-    private int mResponseCode = 0;
-    private JSONArray mResponse;
-    private RequestMethod mMethod;
-    private String mUrl;
-    private ArrayList<NameValuePair> mHeaders;
-    private ArrayList<NameValuePair> mParams;
-    private Server mServer;
-    private ProgressBar mLoadingWidget;
+    private int responseCode = 0;
+    private JSONArray response;
+    private final RequestMethod method;
+    private final String url;
+    private ArrayList<NameValuePair> headers;
+    private final ArrayList<NameValuePair> params;
+    private final Server server;
+    private final ProgressBar loadingWidget;
 
     public RESTRequestTask(Server a_server, ArrayList<NameValuePair> a_headers, ArrayList<NameValuePair> a_params, String a_url, RequestMethod a_method, ProgressBar a_loadingWidget) {
-        this.mParams = a_params;
-        this.mUrl = a_url;
-        this.mMethod = a_method;
-        this.mHeaders = a_headers;
-        this.mServer = a_server;
-        this.mLoadingWidget = a_loadingWidget;
+        this.params = a_params;
+        this.url = a_url;
+        this.method = a_method;
+        this.headers = a_headers;
+        this.server = a_server;
+        this.loadingWidget = a_loadingWidget;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if(null != mLoadingWidget) {
-            mLoadingWidget.setVisibility(View.VISIBLE);
+        if(null != loadingWidget) {
+            loadingWidget.setVisibility(View.VISIBLE);
         }
     }
 
@@ -83,14 +84,14 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
     @Override
     protected void onPostExecute(JSONArray jsonArray) {
         super.onPostExecute(jsonArray);
-        if(null != mLoadingWidget) {
-            mLoadingWidget.setVisibility(View.INVISIBLE);
+        if(null != loadingWidget) {
+            loadingWidget.setVisibility(View.INVISIBLE);
         }
-        mServer.receiveResponseCbk(mResponse, mResponseCode);
+        server.receiveResponseCbk(response, responseCode);
     }
 
-    private JSONArray Execute() throws Exception {
-        switch (mMethod) {
+    private JSONArray Execute() {
+        switch (method) {
             case GET: {
                 ExecuteGet();
                 break;
@@ -108,19 +109,16 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
                 break;
             }
         }
-
-        return mResponse;
+        return response;
     }
 
-    private JSONArray ExecuteGet()
+    private void ExecuteGet()
     {
-        JSONArray retVal = null;
-
         // add parameters
         String combinedParams = "";
-        if (mParams != null) {
+        if (params != null) {
             combinedParams += "?";
-            for (NameValuePair p : mParams) {
+            for (NameValuePair p : params) {
                 String paramString = null;
                 try {
                     paramString = p.getName() + "=" + URLEncoder.encode(p.getValue(), "UTF-8");
@@ -133,40 +131,37 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
                     combinedParams += paramString;
             }
         }
-        HttpGet request = new HttpGet(mUrl + combinedParams);
+        HttpGet request = new HttpGet(url + combinedParams);
         //request.setHeader("Content-type", "application/json");
 
         // add headers
-        if (mHeaders != null) {
-            mHeaders = addJsonHeaderField(mHeaders);
-            for (NameValuePair h : mHeaders)
+        if (headers != null) {
+            headers = addJsonHeaderField(headers);
+            for (NameValuePair h : headers)
                 request.addHeader(h.getName(), h.getValue());
         }
-        mResponse = executeRequest(request);
-
-        return retVal;
+        response = executeRequest(request);
     }
 
-    private JSONArray ExecutePost()
+    private void ExecutePost()
     {
-        JSONArray retVal = null;
-        HttpPost request = new HttpPost(mUrl);
+        HttpPost request = new HttpPost(url);
 
         request.setHeader("Content-type", "application/json");
 
         try {
                 //add headers
-                if (mHeaders != null) {
-                    mHeaders = addJsonHeaderField(mHeaders);
-                    for (NameValuePair h : mHeaders)
+                if (headers != null) {
+                    headers = addJsonHeaderField(headers);
+                    for (NameValuePair h : headers)
                         request.addHeader(h.getName(), h.getValue());
                 }
 
             //add parameters
-            if(null != mParams) {
+            if(null != params) {
                 JSONObject json = new JSONObject();
 
-                for(NameValuePair pair : mParams)
+                for(NameValuePair pair : params)
                 {
                     json.put(pair.getName(), pair.getValue());
                 }
@@ -176,36 +171,31 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
                 request.setEntity(se);
             }
 
-            retVal = executeRequest(request);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+            executeRequest(request);
+        } catch (JSONException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
-        return retVal;
     }
 
-    private JSONArray ExecutePut()
+    private void ExecutePut()
     {
-        JSONArray retVal = null;
-        HttpPut request = new HttpPut(mUrl);
+        HttpPut request = new HttpPut(url);
 
         request.setHeader("Content-type", "application/json");
 
         try {
             //add headers
-            if (mHeaders != null) {
-                mHeaders = addJsonHeaderField(mHeaders);
-                for (NameValuePair h : mHeaders)
+            if (headers != null) {
+                headers = addJsonHeaderField(headers);
+                for (NameValuePair h : headers)
                     request.addHeader(h.getName(), h.getValue());
             }
 
             //add parameters
-            if(null != mParams) {
+            if(null != params) {
                 JSONObject json = new JSONObject();
 
-                for(NameValuePair pair : mParams)
+                for(NameValuePair pair : params)
                 {
                     json.put(pair.getName(), pair.getValue());
                 }
@@ -215,14 +205,10 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
                 request.setEntity(se);
             }
 
-            retVal = executeRequest(request);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+            executeRequest(request);
+        } catch (JSONException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
-        return retVal;
     }
 
     private ArrayList<NameValuePair> addJsonHeaderField(ArrayList<NameValuePair> _header) {
@@ -231,24 +217,23 @@ public class RESTRequestTask extends AsyncTask<Void, Void, JSONArray> {
     }
 
     private JSONArray executeRequest(HttpUriRequest request) {
-        HttpClient client = new DefaultHttpClient();
+        HttpClient client = HttpClientBuilder.create().build();
         HttpResponse httpResponse;
         try {
             httpResponse = client.execute(request);
-            mResponseCode = httpResponse.getStatusLine().getStatusCode();
-            String message = httpResponse.getStatusLine().getReasonPhrase();        // TODO to check if needed
+            responseCode = httpResponse.getStatusLine().getStatusCode();
             HttpEntity entity = httpResponse.getEntity();
 
             if (entity != null) {
                 InputStream inputStream = entity.getContent();
 
-                mResponse = convertInputStreamToJSONArray(inputStream);
+                response = convertInputStreamToJSONArray(inputStream);
                 inputStream.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return mResponse;
+        return response;
     }
 
 

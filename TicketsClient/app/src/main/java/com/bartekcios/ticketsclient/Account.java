@@ -7,29 +7,30 @@ import org.json.JSONObject;
 
 /**
  * Created by bartekcios on 2017-01-12.
+ * Class contains parser and fields for account
  */
 
-public class Account {
+class Account {
 
-    private int mId;
-    private double mBalance;
+    private int id;
+    private double balance;
 
     public Account(JSONObject jsonObject) {
 
         try {
-            mId = obtainId(Uri.parse(jsonObject.getString("url")));
-            mBalance = jsonObject.getDouble("account_balance");
+            id = obtainId(Uri.parse(jsonObject.getString("url")));
+            balance = jsonObject.getDouble("account_balance");
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     public int getId() {
-        return mId;
+        return id;
     }
 
     public double getBalance() {
-        return mBalance;
+        return balance;
     }
 
     private int obtainId(Uri uri)

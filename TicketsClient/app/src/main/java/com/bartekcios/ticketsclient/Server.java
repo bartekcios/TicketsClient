@@ -9,14 +9,15 @@ import cz.msebera.android.httpclient.NameValuePair;
 
 /**
  * Created by bartekcios on 2017-01-03.
+ * Handles requests from client using prepared interface
  */
 
-public class Server {
+class Server {
 
-    private ActivityWithRequestHandling mRequestHandling;
+    private final ActivityWithRequestHandling requestHandling;
 
     public Server(ActivityWithRequestHandling requestHandling) {
-        mRequestHandling = requestHandling;
+        this.requestHandling = requestHandling;
     }
 
     public void sendRequest(ArrayList<NameValuePair> headers, ArrayList<NameValuePair> params) {
@@ -24,18 +25,18 @@ public class Server {
         RESTRequestTask restRequestTask = new RESTRequestTask(this,
                                                                 headers,
                                                                 params,
-                                                                mRequestHandling.getUrl(),
-                                                                mRequestHandling.getRequestMethod(),
-                                                                mRequestHandling.getLoadingWidget());
+                                                                requestHandling.getUrl(),
+                                                                requestHandling.getRequestMethod(),
+                                                                requestHandling.getLoadingWidget());
         restRequestTask.execute();
     }
 
     public void receiveResponseCbk(JSONArray aResponse, int aResponseCode) {
         Log.d("Request response", aResponse.toString() + Integer.toString(aResponseCode));
         if(200<= aResponseCode && 209 >= aResponseCode) {
-            mRequestHandling.positiveResponseCbk(aResponse);
+            requestHandling.positiveResponseCbk(aResponse);
         } else {
-            mRequestHandling.negativeResponseCbk(aResponse);
+            requestHandling.negativeResponseCbk(aResponse);
         }
     }
 }

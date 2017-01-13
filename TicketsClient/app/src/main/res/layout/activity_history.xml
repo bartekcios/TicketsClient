@@ -11,7 +11,7 @@
     tools:context="com.bartekcios.ticketsclient.HistoryActivity">
 
     <Button
-        android:text="Back"
+        android:text="@string/activity_history_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

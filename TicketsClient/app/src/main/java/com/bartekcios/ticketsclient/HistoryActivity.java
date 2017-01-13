@@ -19,12 +19,12 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class HistoryActivity extends AppCompatActivity implements ActivityWithRequestHandling{
 
-    private static final String mTicketsTypesListUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/ticket/";
-    private static final String mHistoryUrl     = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/usertickets/";
-    private static final RESTRequestTask.RequestMethod mCommonRequestMethod = RESTRequestTask.RequestMethod.GET;
-    private List<TicketType> mTicketTypes = null;
-    private List<BoughtTicket> mBoughtTickets = null;
-    private boolean mIsTicketTypesListCreated = false;
+    private static final String ticketsTypesListUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/ticket/";
+    private static final String historyUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/usertickets/";
+    private static final RESTRequestTask.RequestMethod commonRequestMethod = RESTRequestTask.RequestMethod.GET;
+    private List<TicketType> ticketTypes = null;
+    private List<BoughtTicket> boughtTickets = null;
+    private boolean isTicketTypesListCreated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +43,15 @@ public class HistoryActivity extends AppCompatActivity implements ActivityWithRe
     @Override
     public void positiveResponseCbk(JSONArray jsonArray) {
 
-        if(!mIsTicketTypesListCreated)
+        if(!isTicketTypesListCreated)
         {
             // create list of ticket types
-            mTicketTypes = new ArrayList<>();
+            ticketTypes = new ArrayList<>();
             try {
                 for(int i=0;i<jsonArray.length();++i){
-                    mTicketTypes.add(new TicketType(jsonArray.getJSONObject(i)));
+                    ticketTypes.add(new TicketType(jsonArray.getJSONObject(i)));
                 }
-                mIsTicketTypesListCreated = true;
+                isTicketTypesListCreated = true;
                 // send request for bought tickets
                 sendDataRequest();
             } catch (JSONException e) {
@@ -61,10 +61,10 @@ public class HistoryActivity extends AppCompatActivity implements ActivityWithRe
         else
         {
             // create list of users tickets
-            mBoughtTickets = new ArrayList<>();
+            boughtTickets = new ArrayList<>();
             try {
                 for(int i=0;i<jsonArray.length();++i){
-                    mBoughtTickets.add(new BoughtTicket(jsonArray.getJSONObject(i), mTicketTypes));
+                    boughtTickets.add(new BoughtTicket(jsonArray.getJSONObject(i), ticketTypes));
                 }
 
                 initBoughtTicketsList();
@@ -86,26 +86,26 @@ public class HistoryActivity extends AppCompatActivity implements ActivityWithRe
 
     @Override
     public String getUrl() {
-        if(!mIsTicketTypesListCreated)
+        if(!isTicketTypesListCreated)
         {
-            return mTicketsTypesListUrl;
+            return ticketsTypesListUrl;
         }
         else
         {
-            return mHistoryUrl;
+            return historyUrl;
         }
     }
 
     @Override
     public RESTRequestTask.RequestMethod getRequestMethod() {
-        return mCommonRequestMethod;
+        return commonRequestMethod;
     }
 
     private void sendDataRequest(){
         ArrayList<NameValuePair> headers = new ArrayList<>();
         ArrayList<NameValuePair> params = new ArrayList<>();
 
-        headers.add(new BasicNameValuePair("authorization", "token "+User.mToken));
+        headers.add(new BasicNameValuePair("authorization", "token "+User.token));
 
         Server server = new Server(this);
         server.sendRequest(headers, params);
@@ -113,7 +113,7 @@ public class HistoryActivity extends AppCompatActivity implements ActivityWithRe
 
     private void initBoughtTicketsList()
     {
-        ListAdapter ticketsAdapter = new CustomBoughtTicketAdapter(this, mBoughtTickets, (ProgressBar)findViewById(R.id.progressBarLoading));
+        ListAdapter ticketsAdapter = new CustomBoughtTicketAdapter(this, boughtTickets, (ProgressBar)findViewById(R.id.progressBarLoading));
         ListView ticketsListView = (ListView)findViewById(R.id.listViewBoughtTickets);
 
         ticketsListView.setAdapter(ticketsAdapter);

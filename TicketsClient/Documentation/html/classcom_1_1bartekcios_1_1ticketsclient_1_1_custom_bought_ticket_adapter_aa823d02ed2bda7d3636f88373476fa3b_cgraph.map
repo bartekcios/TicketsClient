@@ -1,0 +1,9 @@
+<map id="com.bartekcios.ticketsclient.CustomBoughtTicketAdapter.getView" name="com.bartekcios.ticketsclient.CustomBoughtTicketAdapter.getView">
+<area shape="rect" id="node2" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_bought_ticket.html#a1d031a2a46e6f0cc55b127e0e9544527" title="com.bartekcios.ticketsclient.\lBoughtTicket.getStatus" alt="" coords="293,5,482,47"/>
+<area shape="rect" id="node3" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_bought_ticket.html#acaa76bbbfad27552e7486f8b09c3045a" title="com.bartekcios.ticketsclient.\lBoughtTicket.getPrice" alt="" coords="293,71,482,112"/>
+<area shape="rect" id="node5" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_bought_ticket.html#a324f1da33b4555c4112f56bb9eb869b6" title="com.bartekcios.ticketsclient.\lBoughtTicket.getValidityTime" alt="" coords="292,136,483,177"/>
+<area shape="rect" id="node8" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_bought_ticket.html#a9642f4b0786346d8f8db7889486cea00" title="com.bartekcios.ticketsclient.\lBoughtTicket.getValidToDate" alt="" coords="292,201,483,243"/>
+<area shape="rect" id="node4" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_ticket_type.html#a2fe11180a5868b251b88b0badb659aa6" title="com.bartekcios.ticketsclient.\lTicketType.getPrice" alt="" coords="531,71,720,112"/>
+<area shape="rect" id="node6" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_ticket_type.html#a712481d3139fdcc756bc6e78b3e79414" title="com.bartekcios.ticketsclient.\lTicketType.getValidityTime" alt="" coords="531,136,720,177"/>
+<area shape="rect" id="node7" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_ticket_type.html#abbbf7278bf388e396a8a311a792d2623" title="com.bartekcios.ticketsclient.\lTicketType.getTimeUnit" alt="" coords="531,201,720,243"/>
+</map>

@@ -18,8 +18,8 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class LoginActivity extends AppCompatActivity implements ActivityWithRequestHandling {
 
-    private static final String mUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/auth/";
-    private static final RESTRequestTask.RequestMethod mRequestMethod = RESTRequestTask.RequestMethod.POST;
+    private static final String url = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/auth/";
+    private static final RESTRequestTask.RequestMethod requestMethod = RESTRequestTask.RequestMethod.POST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +40,10 @@ public class LoginActivity extends AppCompatActivity implements ActivityWithRequ
         EditText editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
         // init user values
-        User.mUsername = editTextUsername.getText().toString();
-        User.mPassword = editTextPassword.getText().toString();
-        User.mPasswordLength = editTextUsername.getText().toString().length();
-        User.mToken = token;
-        User.mLoggedIn = true;
+        User.username = editTextUsername.getText().toString();
+        User.password = editTextPassword.getText().toString();
+        User.token = token;
+        User.loggedIn = true;
 
         Intent mainMenuActivity = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(mainMenuActivity);
@@ -62,12 +61,12 @@ public class LoginActivity extends AppCompatActivity implements ActivityWithRequ
 
     @Override
     public String getUrl() {
-        return mUrl;
+        return url;
     }
 
     @Override
     public RESTRequestTask.RequestMethod getRequestMethod() {
-        return mRequestMethod;
+        return requestMethod;
     }
 
     public void authorizeCredentials(View view) {
@@ -77,13 +76,12 @@ public class LoginActivity extends AppCompatActivity implements ActivityWithRequ
         String username = editTextUsername.getText().toString();
         String password = editTextPassword.getText().toString();
 
-        ArrayList<NameValuePair> headers = null;
         ArrayList<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("username", username));
         params.add(new BasicNameValuePair("password", password));
 
         Server server = new Server(this);
-        server.sendRequest(headers, params);
+        server.sendRequest(null, params);
     }
 
     public void goToRegister(View view) {

@@ -11,7 +11,7 @@
     tools:context="com.bartekcios.ticketsclient.MyAccountActivity">
 
     <Button
-        android:text="Back"
+        android:text="@string/activity_my_account_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -20,16 +20,16 @@
         android:onClick="goToMainMenu" />
 
     <TextView
-        android:text="Username"
+        android:text="@string/activity_my_account_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewFirstName"
+        android:id="@+id/textViewUsername"
         android:layout_alignBaseline="@+id/editTextUsername"
         android:layout_alignBottom="@+id/editTextUsername"
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Password"
+        android:text="@string/activity_my_account_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewPassword"
@@ -38,7 +38,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Email"
+        android:text="@string/activity_my_account_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewEmail"
@@ -47,7 +47,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="First name"
+        android:text="@string/activity_my_account_first_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewFirstName"
@@ -56,7 +56,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Last name"
+        android:text="@string/activity_my_account_last_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewLastName"
@@ -65,7 +65,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Balance"
+        android:text="@string/activity_my_account_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewBalance"
@@ -74,7 +74,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Recharge account"
+        android:text="@string/activity_my_account_recharge_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewRecharge"
@@ -96,17 +96,17 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editTextUsername"
-        android:hint="Username"
+        android:hint="@string/activity_my_account_hint_username"
         android:layout_below="@+id/progressBarLoading"
         android:layout_alignStart="@+id/editTextPassword" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editTextPassword"
-        android:hint="Password"
+        android:hint="@string/activity_my_account_hint_password"
         android:layout_below="@+id/editTextUsername"
         android:layout_alignStart="@+id/editTextFirstName" />
 
@@ -116,7 +116,7 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editTextFirstName"
-        android:hint="First name"
+        android:hint="@string/activity_my_account_hint_first_name"
         android:layout_below="@+id/editTextPassword"
         android:layout_alignStart="@+id/editTextLastName" />
 
@@ -126,17 +126,17 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editTextLastName"
-        android:hint="Last name"
+        android:hint="@string/activity_my_account_hint_last_name"
         android:layout_below="@+id/editTextFirstName"
         android:layout_alignStart="@+id/editTextEmail" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/editTextEmail"
-        android:hint="Email"
+        android:hint="@string/activity_my_account_hint_email"
         android:layout_below="@+id/editTextLastName"
         android:layout_alignStart="@+id/editTextBalance" />
 
@@ -146,7 +146,7 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editTextBalance"
-        android:hint="Balance"
+        android:hint="@string/activity_my_account_hint_balance"
         android:layout_below="@+id/editTextEmail"
         android:layout_alignStart="@+id/editTextRecharge" />
 
@@ -156,13 +156,13 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editTextRecharge"
-        android:hint="Recharge your account"
-        android:text="0"
+        android:hint="@string/activity_my_account_hint_recharge_your_account"
+        android:text="@string/activity_my_account_hint__0"
         android:layout_below="@+id/editTextBalance"
         android:layout_alignStart="@+id/buttonRecharge" />
 
     <Button
-        android:text="Recharge"
+        android:text="@string/activity_my_account_button_recharge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonRecharge"

@@ -14,15 +14,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class MyAccountActivity extends AppCompatActivity implements ActivityWithRequestHandling {
 
-    private static final String mUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/account/";
-    private static final RESTRequestTask.RequestMethod mRequestMethod = RESTRequestTask.RequestMethod.GET;
-    private Account mAccount = null;
+    private static final String url = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/account/";
+    private static final RESTRequestTask.RequestMethod requestMethod = RESTRequestTask.RequestMethod.GET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +40,11 @@ public class MyAccountActivity extends AppCompatActivity implements ActivityWith
         EditText editTextLastName = (EditText) findViewById(R.id.editTextLastName);
         EditText editTextEmail = (EditText) findViewById(R.id.editTextEmail);
 
-        editTextUsername.setText(User.mUsername);
-        editTextPassword.setText(User.mPassword);
-        editTextFirstName.setText(User.mFirstName);
-        editTextLastName.setText(User.mLastName);
-        editTextEmail.setText(User.mEmail);
+        editTextUsername.setText(User.username);
+        editTextPassword.setText(User.password);
+        editTextFirstName.setText(User.firstName);
+        editTextLastName.setText(User.lastName);
+        editTextEmail.setText(User.email);
     }
 
     public void goToMainMenu(View view) {
@@ -60,12 +60,12 @@ public class MyAccountActivity extends AppCompatActivity implements ActivityWith
             EditText editTextBalance = (EditText) findViewById(R.id.editTextBalance);
             EditText editTextRecharge= (EditText) findViewById(R.id.editTextRecharge);
 
-            mAccount = new Account(jsonObject);
-            editTextBalance.setText(Double.toString(mAccount.getBalance()));
+            Account account = new Account(jsonObject);
+            editTextBalance.setText(String.format(Locale.getDefault(), "%.0f", account.getBalance()));
 
-            //set onclicklistener
+            //set onclick listener
             Button rechargeButton = (Button) findViewById(R.id.buttonRecharge);
-            rechargeButton.setOnClickListener(new RechargeOnClickListener(this, editTextBalance, mAccount, (ProgressBar)findViewById(R.id.progressBarLoading), editTextRecharge));
+            rechargeButton.setOnClickListener(new RechargeOnClickListener(this, editTextBalance, account, (ProgressBar)findViewById(R.id.progressBarLoading), editTextRecharge));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -83,21 +83,20 @@ public class MyAccountActivity extends AppCompatActivity implements ActivityWith
 
     @Override
     public String getUrl() {
-        return mUrl;
+        return url;
     }
 
     @Override
     public RESTRequestTask.RequestMethod getRequestMethod() {
-        return mRequestMethod;
+        return requestMethod;
     }
 
     private void sendDataRequest(){
         ArrayList<NameValuePair> headers = new ArrayList<>();
-        ArrayList<NameValuePair> params = null;
 
-        headers.add(new BasicNameValuePair("authorization", "token "+User.mToken));
+        headers.add(new BasicNameValuePair("authorization", "token "+User.token));
 
         Server server = new Server(this);
-        server.sendRequest(headers, params);
+        server.sendRequest(headers, null);
     }
 }

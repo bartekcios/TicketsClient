@@ -18,23 +18,24 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 /**
  * Created by bartekcios on 2017-01-11.
+ * Class used as onclick listener for validate the ticket
  */
 
 public class ValidateTicketOnClickListener  implements View.OnClickListener, ActivityWithRequestHandling {
 
-    private static final String mUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/usertickets/";
-    private static final RESTRequestTask.RequestMethod mRequestMethod = RESTRequestTask.RequestMethod.PUT;
-    private final ProgressBar mProgressBarLoading;
-    private final Context mContext;
-    private final BoughtTicket mBoughtTicket;
-    private TextView statusTextView;
-    private TextView validToDataTextView;
-    private Button validateButton;
+    private static final String url = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/usertickets/";
+    private static final RESTRequestTask.RequestMethod requestMethod = RESTRequestTask.RequestMethod.PUT;
+    private final ProgressBar progressBarLoading;
+    private final Context context;
+    private final BoughtTicket boughtTicket;
+    private final TextView statusTextView;
+    private final TextView validToDataTextView;
+    private final Button validateButton;
 
     public ValidateTicketOnClickListener(Context context, BoughtTicket ticket, ProgressBar progressBarLoading, TextView statusTextView, TextView validToDataTextView, Button validateButton) {
-        this.mBoughtTicket = ticket;
-        this.mProgressBarLoading = progressBarLoading;
-        this.mContext = context;
+        this.boughtTicket = ticket;
+        this.progressBarLoading = progressBarLoading;
+        this.context = context;
         this.statusTextView = statusTextView;
         this.validToDataTextView = validToDataTextView;
         this.validateButton = validateButton;
@@ -47,7 +48,7 @@ public class ValidateTicketOnClickListener  implements View.OnClickListener, Act
 
     @Override
     public void positiveResponseCbk(JSONArray jsonArray) {
-        Toast.makeText(mContext, "Ticket validated!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Ticket validated!", Toast.LENGTH_SHORT).show();
 
         try {
             // get changed ticket
@@ -66,29 +67,29 @@ public class ValidateTicketOnClickListener  implements View.OnClickListener, Act
 
     @Override
     public void negativeResponseCbk(JSONArray jsonArray) {
-        Toast.makeText(mContext, "Error occurred!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Error occurred!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public ProgressBar getLoadingWidget() {
-        return mProgressBarLoading;
+        return progressBarLoading;
     }
 
     @Override
     public String getUrl() {
-        return mUrl+mBoughtTicket.getId()+"/";
+        return url + boughtTicket.getId()+"/";
     }
 
     @Override
     public RESTRequestTask.RequestMethod getRequestMethod() {
-        return mRequestMethod;
+        return requestMethod;
     }
 
     private void sendDataRequest(){
         ArrayList<NameValuePair> headers = new ArrayList<>();
         ArrayList<NameValuePair> params = new ArrayList<>();
 
-        headers.add(new BasicNameValuePair("authorization", "token "+User.mToken));
+        headers.add(new BasicNameValuePair("authorization", "token "+User.token));
         params.add(new BasicNameValuePair("status", "active"));
 
         Server server = new Server(this);

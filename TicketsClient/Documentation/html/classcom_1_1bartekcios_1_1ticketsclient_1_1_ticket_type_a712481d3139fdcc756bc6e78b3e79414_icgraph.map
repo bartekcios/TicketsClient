@@ -1,0 +1,5 @@
+<map id="com.bartekcios.ticketsclient.TicketType.getValidityTime" name="com.bartekcios.ticketsclient.TicketType.getValidityTime">
+<area shape="rect" id="node2" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_bought_ticket.html#a324f1da33b4555c4112f56bb9eb869b6" title="com.bartekcios.ticketsclient.\lBoughtTicket.getValidityTime" alt="" coords="260,5,451,47"/>
+<area shape="rect" id="node4" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_custom_ticket_type_adapter.html#acf4fd29b15524f88e0a297603bbdc6f0" title="com.bartekcios.ticketsclient.\lCustomTicketTypeAdapter.getView" alt="" coords="243,71,468,112"/>
+<area shape="rect" id="node3" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_custom_bought_ticket_adapter.html#aa823d02ed2bda7d3636f88373476fa3b" title="com.bartekcios.ticketsclient.\lCustomBoughtTicketAdapter.getView" alt="" coords="516,5,755,47"/>
+</map>

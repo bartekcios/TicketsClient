@@ -2,29 +2,28 @@ package com.bartekcios.ticketsclient;
 
 /**
  * Created by bartekcios on 2017-01-09.
+ * Class contains static fields of user data
  */
 
-public class User {
-    public static String mToken = "";
-    public static String mUsername = "";
-    public static String mPassword = "";
-    public static int mPasswordLength = 0;
-    public static String mFirstName = "";
-    public static String mLastName = "";
-    public static String mEmail = "";
-    public static boolean mInitialized = false;
-    public static boolean mLoggedIn = false;
+class User {
+    public static String token = "";
+    public static String username = "";
+    public static String password = "";
+    public static String firstName = "";
+    public static String lastName = "";
+    public static String email = "";
+    public static boolean initialized = false;
+    public static boolean loggedIn = false;
 
-    public static void deinit()
+    public static void reset()
     {
-        mToken = "";
-        mUsername = "";
-        mPassword = "";
-        mPasswordLength = 0;
-        mFirstName = "";
-        mLastName = "";
-        mEmail = "";
-        mInitialized = false;
-        mLoggedIn = false;
+        token = "";
+        username = "";
+        password = "";
+        firstName = "";
+        lastName = "";
+        email = "";
+        initialized = false;
+        loggedIn = false;
     }
 }

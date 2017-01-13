@@ -1,0 +1,6 @@
+<map id="com.bartekcios.ticketsclient.LoginActivity.authorizeCredentials" name="com.bartekcios.ticketsclient.LoginActivity.authorizeCredentials">
+<area shape="rect" id="node2" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_server.html#ae467fe2cd2ad1ccf4e8e61ff9ba5ca42" title="com.bartekcios.ticketsclient.\lServer.sendRequest" alt="" coords="271,79,460,120"/>
+<area shape="rect" id="node3" href="$interfacecom_1_1bartekcios_1_1ticketsclient_1_1_activity_with_request_handling.html#a6a0c2f3b1ec60ef01b6a6da8c3c54b18" title="com.bartekcios.ticketsclient.\lActivityWithRequestHandling.getUrl" alt="" coords="524,5,751,47"/>
+<area shape="rect" id="node4" href="$interfacecom_1_1bartekcios_1_1ticketsclient_1_1_activity_with_request_handling.html#a2de28f325f2c3d3b71101b30227331fb" title="com.bartekcios.ticketsclient.\lActivityWithRequestHandling.getRequest\lMethod" alt="" coords="508,71,767,127"/>
+<area shape="rect" id="node5" href="$interfacecom_1_1bartekcios_1_1ticketsclient_1_1_activity_with_request_handling.html#a2f8df8eb56e9ff841af1d6ce4726fdad" title="com.bartekcios.ticketsclient.\lActivityWithRequestHandling.getLoading\lWidget" alt="" coords="509,151,765,207"/>
+</map>

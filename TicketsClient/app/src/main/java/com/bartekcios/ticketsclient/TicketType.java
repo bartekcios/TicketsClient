@@ -5,29 +5,27 @@ import android.net.Uri;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 /**
  * Created by bartekcios on 2017-01-10.
+ * Class contains parser and fields for ticket types
  */
 
-public class TicketType {
-    private String mName;
-    private String mPrice;
-    private String mDescription;
-    private String mValidityTime;
-    private String mTimeUnit;
+class TicketType {
+    private String name;
+    private String price;
+    private String description;
+    private String validityTime;
+    private String timeUnit;
     private int mId;
 
     public TicketType(JSONObject jsonObject) {
 
         try {
-            mName = jsonObject.getString("name");
-            mPrice = jsonObject.getString("price");
-            mDescription = jsonObject.getString("description");
-            mValidityTime = jsonObject.getString("time_of_validity");
-            mTimeUnit = jsonObject.getString("time_unit");
+            name = jsonObject.getString("name");
+            price = jsonObject.getString("price");
+            description = jsonObject.getString("description");
+            validityTime = jsonObject.getString("time_of_validity");
+            timeUnit = jsonObject.getString("time_unit");
             mId = obtainId(Uri.parse(jsonObject.getString("url")));
 
         } catch (JSONException e) {
@@ -46,23 +44,23 @@ public class TicketType {
     }
 
     public String getPrice() {
-        return mPrice;
+        return price;
     }
 
     public String getDescription() {
-        return mDescription;
+        return description;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public String getTimeUnit() {
-        return mTimeUnit;
+        return timeUnit;
     }
 
     public String getValidityTime() {
-        return mValidityTime;
+        return validityTime;
     }
 
     public int getId() {

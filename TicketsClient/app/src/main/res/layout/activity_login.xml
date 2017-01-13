@@ -11,7 +11,7 @@
     tools:context="com.bartekcios.ticketsclient.LoginActivity">
 
     <Button
-        android:text="Login"
+        android:text="@string/activity_login_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -28,7 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="84dp"
         android:id="@+id/editTextUsername"
-        android:hint="Username" />
+        android:hint="@string/activity_login_username" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -39,11 +39,10 @@
         android:layout_alignEnd="@+id/editTextUsername"
         android:layout_marginTop="19dp"
         android:id="@+id/editTextPassword"
-        android:contentDescription="Password"
-        android:hint="Password" />
+        android:hint="@string/activity_login_password" />
 
     <Button
-        android:text="Register"
+        android:text="@string/activity_login_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonRegister"

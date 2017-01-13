@@ -4,31 +4,31 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Price"
+        android:text="@string/price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textViewPrice" />
 
     <TextView
-        android:text="Validity time"
+        android:text="@string/custom_history_ticket_validity_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textViewValidityTime" />
 
     <TextView
-        android:text="Status"
+        android:text="@string/custom_history_ticket_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textViewStatus" />
 
     <TextView
-        android:text="Valid to date"
+        android:text="@string/custom_history_ticket_valid_to_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textViewValidToDate" />
 
     <Button
-        android:text="Validate the ticket"
+        android:text="@string/custom_history_ticket_validate_the_ticket"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/buttonValidateTheTicket" />

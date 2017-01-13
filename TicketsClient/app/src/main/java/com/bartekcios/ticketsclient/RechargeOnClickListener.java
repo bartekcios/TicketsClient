@@ -11,23 +11,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 /**
  * Created by bartekcios on 2017-01-13.
+ * Class contains on click listener for recharge request
  */
 
 public class RechargeOnClickListener implements View.OnClickListener, ActivityWithRequestHandling  {
 
-    private static final String mUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/account/";
-    private static final RESTRequestTask.RequestMethod mRequestMethod = RESTRequestTask.RequestMethod.PUT;
+    private static final String url = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/account/";
+    private static final RESTRequestTask.RequestMethod requestMethod = RESTRequestTask.RequestMethod.PUT;
     private final EditText editTextBalance;
     private Account account;
     private final ProgressBar progressBarLoading;
     private final Context myAccountActivity;
-    private EditText editTextRecharge;
+    private final EditText editTextRecharge;
 
     public RechargeOnClickListener(MyAccountActivity myAccountActivity, EditText editTextBalance, Account account, ProgressBar progressBarLoading, EditText editTextRecharge) {
         this.editTextBalance = editTextBalance;
@@ -48,7 +50,7 @@ public class RechargeOnClickListener implements View.OnClickListener, ActivityWi
             JSONObject jsonObject = jsonArray.getJSONObject(0);
 
             account = new Account(jsonObject);
-            editTextBalance.setText(Double.toString(account.getBalance()));
+            editTextBalance.setText(String.format(Locale.getDefault(), "%.0f", account.getBalance()));
 
             Toast.makeText(myAccountActivity, "Recharged correctly!", Toast.LENGTH_SHORT).show();
 
@@ -69,12 +71,12 @@ public class RechargeOnClickListener implements View.OnClickListener, ActivityWi
 
     @Override
     public String getUrl() {
-        return mUrl+account.getId()+"/";
+        return url +account.getId()+"/";
     }
 
     @Override
     public RESTRequestTask.RequestMethod getRequestMethod() {
-        return mRequestMethod;
+        return requestMethod;
     }
 
     private void sendDataRequest(){
@@ -82,7 +84,7 @@ public class RechargeOnClickListener implements View.OnClickListener, ActivityWi
         ArrayList<NameValuePair> params = new ArrayList<>();
         int increaseValue = Integer.parseInt(editTextRecharge.getText().toString());
 
-        headers.add(new BasicNameValuePair("authorization", "token "+User.mToken));
+        headers.add(new BasicNameValuePair("authorization", "token "+User.token));
         params.add(new BasicNameValuePair("account_balance", Integer.toString(increaseValue)));
 
         Server server = new Server(this);

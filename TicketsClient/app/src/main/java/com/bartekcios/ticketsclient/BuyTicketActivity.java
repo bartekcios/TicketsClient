@@ -19,9 +19,9 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class BuyTicketActivity extends AppCompatActivity implements ActivityWithRequestHandling {
 
-    private static final String mUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/ticket/";
-    private static final RESTRequestTask.RequestMethod mRequestMethod = RESTRequestTask.RequestMethod.GET;
-    private List<TicketType> mTicketTypes = null;
+    private static final String url = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/ticket/";
+    private static final RESTRequestTask.RequestMethod requestMethod = RESTRequestTask.RequestMethod.GET;
+    private List<TicketType> ticketTypes = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +39,10 @@ public class BuyTicketActivity extends AppCompatActivity implements ActivityWith
     @Override
     public void positiveResponseCbk(JSONArray jsonArray) {
 
-        mTicketTypes = new ArrayList<>();
+        ticketTypes = new ArrayList<>();
         try {
         for(int i=0;i<jsonArray.length();++i){
-            mTicketTypes.add(new TicketType(jsonArray.getJSONObject(i)));
+            ticketTypes.add(new TicketType(jsonArray.getJSONObject(i)));
         }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -63,19 +63,19 @@ public class BuyTicketActivity extends AppCompatActivity implements ActivityWith
 
     @Override
     public String getUrl() {
-        return mUrl;
+        return url;
     }
 
     @Override
     public RESTRequestTask.RequestMethod getRequestMethod() {
-        return mRequestMethod;
+        return requestMethod;
     }
 
     private void sendDataRequest(){
         ArrayList<NameValuePair> headers = new ArrayList<>();
         ArrayList<NameValuePair> params = new ArrayList<>();
 
-        headers.add(new BasicNameValuePair("authorization", "token "+User.mToken));
+        headers.add(new BasicNameValuePair("authorization", "token "+User.token));
 
         Server server = new Server(this);
         server.sendRequest(headers, params);
@@ -83,7 +83,7 @@ public class BuyTicketActivity extends AppCompatActivity implements ActivityWith
 
     private void initTicketTypesList()
     {
-        ListAdapter ticketsAdapter = new CustomTicketTypeAdapter(this, mTicketTypes, (ProgressBar)findViewById(R.id.progressBarLoading));
+        ListAdapter ticketsAdapter = new CustomTicketTypeAdapter(this, ticketTypes, (ProgressBar)findViewById(R.id.progressBarLoading));
         ListView ticketsListView = (ListView)findViewById(R.id.listViewTickets);
 
         ticketsListView.setAdapter(ticketsAdapter);

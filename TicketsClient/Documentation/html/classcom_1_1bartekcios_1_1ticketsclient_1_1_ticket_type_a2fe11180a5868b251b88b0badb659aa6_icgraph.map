@@ -1,0 +1,5 @@
+<map id="com.bartekcios.ticketsclient.TicketType.getPrice" name="com.bartekcios.ticketsclient.TicketType.getPrice">
+<area shape="rect" id="node2" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_bought_ticket.html#acaa76bbbfad27552e7486f8b09c3045a" title="com.bartekcios.ticketsclient.\lBoughtTicket.getPrice" alt="" coords="261,5,450,47"/>
+<area shape="rect" id="node4" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_custom_ticket_type_adapter.html#acf4fd29b15524f88e0a297603bbdc6f0" title="com.bartekcios.ticketsclient.\lCustomTicketTypeAdapter.getView" alt="" coords="243,71,468,112"/>
+<area shape="rect" id="node3" href="$classcom_1_1bartekcios_1_1ticketsclient_1_1_custom_bought_ticket_adapter.html#aa823d02ed2bda7d3636f88373476fa3b" title="com.bartekcios.ticketsclient.\lCustomBoughtTicketAdapter.getView" alt="" coords="516,5,755,47"/>
+</map>

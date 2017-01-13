@@ -9,50 +9,47 @@ import java.util.List;
 
 /**
  * Created by bartekcios on 2017-01-11.
+ * Class contains parser and fields for bought ticket
  */
 
-public class BoughtTicket {
+class BoughtTicket {
 
-    private int mId;
-    private int mTypeId;
-    private String mStatus;
-    private String mValidToDate;
-    private TicketType mTicketType = null;
-    private boolean mIsTicketTypeDownloaded = false;
+    private int id;
+    private int typeId;
+    private String status;
+    private String validToDate;
+    private TicketType ticketType = null;
+    private boolean isTicketTypeDownloaded = false;
 
     public BoughtTicket(JSONObject jsonObject, List<TicketType> ticketTypes) {
 
         try {
-            mId = obtainId(Uri.parse(jsonObject.getString("url")));
-            mTypeId = jsonObject.getInt("ticket_id");
-            mStatus = jsonObject.getString("status");
-            mValidToDate = jsonObject.getString("valid_to_date");
+            id = obtainId(Uri.parse(jsonObject.getString("url")));
+            typeId = jsonObject.getInt("ticket_id");
+            status = jsonObject.getString("status");
+            validToDate = jsonObject.getString("valid_to_date");
 
-            mIsTicketTypeDownloaded = getTypeData(ticketTypes);
+            isTicketTypeDownloaded = getTypeData(ticketTypes);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     public int getId() {
-        return mId;
-    }
-
-    public int getTypeId() {
-        return mTypeId;
+        return id;
     }
 
     public String getStatus() {
-        return mStatus;
+        return status;
     }
 
     public String getValidToDate() {
-        return mValidToDate;
+        return validToDate;
     }
 
     public String getPrice() {
-        if(mIsTicketTypeDownloaded) {
-            return mTicketType.getPrice();
+        if(isTicketTypeDownloaded) {
+            return ticketType.getPrice();
         }else
         {
             throw new NullPointerException();
@@ -60,16 +57,12 @@ public class BoughtTicket {
     }
 
     public String getValidityTime() {
-        if(mIsTicketTypeDownloaded) {
-            return mTicketType.getValidityTime()+" "+mTicketType.getTimeUnit();
+        if(isTicketTypeDownloaded) {
+            return ticketType.getValidityTime()+" "+ ticketType.getTimeUnit();
         }else
         {
             throw new NullPointerException();
         }
-    }
-
-    public boolean isTicketTypeDownloaded() {
-        return mIsTicketTypeDownloaded;
     }
 
     private int obtainId(Uri uri)
@@ -82,14 +75,14 @@ public class BoughtTicket {
         return id;
     }
 
-    public boolean getTypeData(List<TicketType> ticketTypes)
+    private boolean getTypeData(List<TicketType> ticketTypes)
     {
         boolean found = false;
         for (TicketType type:
              ticketTypes) {
-            if(mTypeId == type.getId())
+            if(typeId == type.getId())
             {
-                mTicketType = type;
+                ticketType = type;
                 found = true;
                 break;
             }

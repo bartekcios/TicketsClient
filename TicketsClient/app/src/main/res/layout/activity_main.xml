@@ -18,7 +18,7 @@
         android:id="@+id/textViewFirstName" />
 
     <Button
-        android:text="My account"
+        android:text="@string/activity_main_my_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonMyAccount"
@@ -27,7 +27,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="History"
+        android:text="@string/activity_main_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonHistory"
@@ -36,7 +36,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Buy ticket"
+        android:text="@string/activity_main_buy_ticket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonBuyTicket"
@@ -45,7 +45,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Logout"
+        android:text="@string/activity_main_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonLogout"

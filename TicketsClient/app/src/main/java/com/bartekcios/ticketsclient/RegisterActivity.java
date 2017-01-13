@@ -19,8 +19,8 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class RegisterActivity extends AppCompatActivity implements ActivityWithRequestHandling {
 
-    private static final String mUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/user/";
-    private static final RESTRequestTask.RequestMethod mRequestMethod = RESTRequestTask.RequestMethod.POST;
+    private static final String url = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/user/";
+    private static final RESTRequestTask.RequestMethod requestMethod = RESTRequestTask.RequestMethod.POST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +59,12 @@ public class RegisterActivity extends AppCompatActivity implements ActivityWithR
 
     @Override
     public String getUrl() {
-        return mUrl;
+        return url;
     }
 
     @Override
     public RESTRequestTask.RequestMethod getRequestMethod() {
-        return mRequestMethod;
+        return requestMethod;
     }
 
     public void sendRegisterRequest(View view) {
@@ -80,7 +80,6 @@ public class RegisterActivity extends AppCompatActivity implements ActivityWithR
         String lastName  = editTextLastName.getText().toString();
         String email     = editTextEmail.getText().toString();
 
-        ArrayList<NameValuePair> headers = null;
         ArrayList<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("username", username));
         params.add(new BasicNameValuePair("password", password));
@@ -89,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity implements ActivityWithR
         params.add(new BasicNameValuePair("email", email));
 
         Server server = new Server(this);
-        server.sendRequest(headers, params);
+        server.sendRequest(null, params);
     }
 
     public void goToLogin(View view) {

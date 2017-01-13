@@ -1,0 +1,4 @@
+<map id="com.bartekcios.ticketsclient.Server.receiveResponseCbk" name="com.bartekcios.ticketsclient.Server.receiveResponseCbk">
+<area shape="rect" id="node2" href="$interfacecom_1_1bartekcios_1_1ticketsclient_1_1_activity_with_request_handling.html#a43459b5f0cede2697cc0c1e214462098" title="com.bartekcios.ticketsclient.\lActivityWithRequestHandling.positive\lResponseCbk" alt="" coords="245,5,481,61"/>
+<area shape="rect" id="node3" href="$interfacecom_1_1bartekcios_1_1ticketsclient_1_1_activity_with_request_handling.html#a821409dd3783f82301349608daba40d5" title="com.bartekcios.ticketsclient.\lActivityWithRequestHandling.negative\lResponseCbk" alt="" coords="243,85,483,141"/>
+</map>

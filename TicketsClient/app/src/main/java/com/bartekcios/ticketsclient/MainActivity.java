@@ -19,19 +19,19 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class MainActivity extends AppCompatActivity implements ActivityWithRequestHandling {
 
-    private static final String mUrl = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/user/";
-    private static final RESTRequestTask.RequestMethod mRequestMethod = RESTRequestTask.RequestMethod.GET;
+    private static final String url = "http://ec2-54-93-114-125.eu-central-1.compute.amazonaws.com:8000/user/";
+    private static final RESTRequestTask.RequestMethod requestMethod = RESTRequestTask.RequestMethod.GET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(User.mLoggedIn) {
+        if(User.loggedIn) {
             TextView username = (TextView) findViewById(R.id.textViewFirstName);
-            username.setText("Hi " + User.mUsername + "!");
+            username.setText("Hi " + User.username + "!");
 
-            if (!User.mInitialized) {
+            if (!User.initialized) {
                 sendDataRequest();
             }
         } else {
@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity implements ActivityWithReque
         try {
             JSONObject jsonObject = jsonArray.getJSONObject(0);
 
-            User.mFirstName = jsonObject.getString("first_name");
-            User.mLastName = jsonObject.getString("last_name");
-            User.mEmail = jsonObject.getString("email");
+            User.firstName = jsonObject.getString("first_name");
+            User.lastName = jsonObject.getString("last_name");
+            User.email = jsonObject.getString("email");
 
-            User.mInitialized = true;
+            User.initialized = true;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -77,22 +77,21 @@ public class MainActivity extends AppCompatActivity implements ActivityWithReque
 
     @Override
     public String getUrl() {
-        return mUrl;
+        return url;
     }
 
     @Override
     public RESTRequestTask.RequestMethod getRequestMethod() {
-        return mRequestMethod;
+        return requestMethod;
     }
 
     private void sendDataRequest(){
         ArrayList<NameValuePair> headers = new ArrayList<>();
-        ArrayList<NameValuePair> params = null;
 
-        headers.add(new BasicNameValuePair("authorization", "token "+User.mToken));
+        headers.add(new BasicNameValuePair("authorization", "token "+User.token));
 
         Server server = new Server(this);
-        server.sendRequest(headers, params);
+        server.sendRequest(headers, null);
     }
 
     public void goToBuyTicket(View view) {
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements ActivityWithReque
     }
 
     public void logout(View view) {
-        User.deinit();
+        User.reset();
         Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
         startActivity(loginActivity);
     }
